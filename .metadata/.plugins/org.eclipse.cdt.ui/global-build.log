@@ -1,0 +1,50 @@
+Info: Nothing to build for TP_[1]
+20:33:09 **** Incremental Build of configuration Debug for project TP_[1] ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\TP_[1].o" "..\\src\\TP_[1].c" 
+..\src\TP_[1].c: In function 'main':
+..\src\TP_[1].c:43:17: warning: implicit declaration of function 'menu' [-Wimplicit-function-declaration]
+   43 |          switch(menu(kmIngresados,precAero,precLat))
+      |                 ^~~~
+..\src\TP_[1].c:46:29: warning: implicit declaration of function 'solicitarKm' [-Wimplicit-function-declaration]
+   46 |              kmIngresados = solicitarKm();
+      |                             ^~~~~~~~~~~
+..\src\TP_[1].c:51:25: warning: implicit declaration of function 'solicitarPrecios' [-Wimplicit-function-declaration]
+   51 |              precAero = solicitarPrecios();
+      |                         ^~~~~~~~~~~~~~~~
+..\src\TP_[1].c:96:14: warning: implicit declaration of function 'cargaForzada' [-Wimplicit-function-declaration]
+   96 |              cargaForzada (&kmIngresados,&precAero,&precLat);
+      |              ^~~~~~~~~~~~
+gcc -o TP_[1].exe "src\\TP_[1].o" "src\\calculos.o" "src\\ingresosYValidaciones.o" "src\\menuYMensajes.o" 
+20:36:19 **** Incremental Build of configuration Debug for project TP_[1] ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\TP_[1].o" "..\\src\\TP_[1].c" 
+..\src\TP_[1].c: In function 'main':
+..\src\TP_[1].c:44:17: warning: implicit declaration of function 'menu' [-Wimplicit-function-declaration]
+   44 |          switch(menu(kmIngresados,precAero,precLat))
+      |                 ^~~~
+gcc -o TP_[1].exe "src\\TP_[1].o" "src\\calculos.o" "src\\ingresosYValidaciones.o" "src\\menuYMensajes.o" 
+20:37:37 **** Incremental Build of configuration Debug for project TP_[1] ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\menuYMensajes.o" "..\\src\\menuYMensajes.c" 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\ingresosYValidaciones.o" "..\\src\\ingresosYValidaciones.c" 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\TP_[1].o" "..\\src\\TP_[1].c" 
+gcc -o TP_[1].exe "src\\TP_[1].o" "src\\calculos.o" "src\\ingresosYValidaciones.o" "src\\menuYMensajes.o" 
+20:54:28 **** Incremental Build of configuration Debug for project TP_[1] ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\calculos.o" "..\\src\\calculos.c" 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\TP_[1].o" "..\\src\\TP_[1].c" 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\ingresosYValidaciones.o" "..\\src\\ingresosYValidaciones.c" 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\menuYMensajes.o" "..\\src\\menuYMensajes.c" 
+gcc -o TP_[1].exe "src\\TP_[1].o" "src\\calculos.o" "src\\ingresosYValidaciones.o" "src\\menuYMensajes.o" 
+21:13:30 **** Incremental Build of configuration Debug for project TP_[1] ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\ingresosYValidaciones.o" "..\\src\\ingresosYValidaciones.c" 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\TP_[1].o" "..\\src\\TP_[1].c" 
+gcc -o TP_[1].exe "src\\TP_[1].o" "src\\calculos.o" "src\\ingresosYValidaciones.o" "src\\menuYMensajes.o" 
+21:18:52 **** Incremental Build of configuration Debug for project TP_[1] ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\menuYMensajes.o" "..\\src\\menuYMensajes.c" 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\TP_[1].o" "..\\src\\TP_[1].c" 
+gcc -o TP_[1].exe "src\\TP_[1].o" "src\\calculos.o" "src\\ingresosYValidaciones.o" "src\\menuYMensajes.o" 
+Info: Nothing to build for TP_[1]

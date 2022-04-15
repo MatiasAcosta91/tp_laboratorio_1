@@ -1,0 +1,288 @@
+/*
+ ============================================================================
+ Name        : TP_[1].c
+ Author      : Acosta Matias Jordan 1A
+ Version     :
+ Copyright   : Your copyright notice
+ Description : Hello World in C, Ansi-style
+ ============================================================================
+ */
+#include <stdio.h>
+#include <stdlib.h>
+#include "menuYMensajes.h"
+#define BITCOIN 4606954.55
+#define DESCUENTO 10
+#define INTERES 25
+
+
+int menu (int km,int precAero,int precLat);
+int solicitarKm ();
+int solicitarPrecios();
+int validarIngesoPositivo (int ingreso);
+float aplicarDescuento (int precioInicial, int porDesc);
+float aplicarInteres (int precioInicial,int porcInteres);
+double pesosABitcoin (int precioPesos, float valorBitcoin);
+float precioPorKm (int km, int precio);
+int realizarCalculos (int precioVuelo,int descuento,int interes,int km,float valorBitcoin,float* precDebit, float* precCredit,double* precBit,float* precKm);
+void mensajeCalculos();
+void mostrarResultados (float precDebito, float precCredito, double precBitcoin, float precioPorKm);
+int cargaForzada (int* kmIngresados, int* precioAero, int* precioLat);
+int calcularDifPrecio(int precio1,int precio2);
+
+
+int main(void) {
+		setbuf(stdout,NULL);
+		int seguir = 1;
+	    int kmIngresados = 0;
+	    int precAero = 0;
+	    int precLat = 0;
+
+	    float precAeroDebito;
+	    float precAeroCredito;
+	    double precAeroBitcoin;
+	    float precAeroPorKm;
+
+
+	    float precLatDebito;
+	    float precLatCredito;
+	    double precLatBitcoin;
+	    float precLatPorKm;
+	    int diferenciaPrecio;
+
+
+
+	    int flagKm = 0;
+	    int flagPrecios = 0;
+	    int flagCalculos = 0;
+
+
+
+	    do
+	    {
+
+	        switch(menu(kmIngresados,precAero,precLat))
+	        {
+	        case 1:
+	            kmIngresados = solicitarKm();
+	            flagKm=1;
+	            break;
+	        case 2:
+	            printf("Aerolineas ");
+	            precAero = solicitarPrecios();
+
+	            printf("Latam ");
+	            precLat = solicitarPrecios();
+	            flagPrecios=1;
+	            break;
+	        case 3:
+	            if (flagKm && flagPrecios)
+	            {
+	                realizarCalculos (precAero,kmIngresados,DESCUENTO,INTERES,BITCOIN,&precAeroDebito,&precAeroCredito,&precAeroBitcoin,&precAeroPorKm);
+	                realizarCalculos (precLat,kmIngresados,DESCUENTO,INTERES,BITCOIN,&precLatDebito,&precLatCredito,&precLatBitcoin,&precLatPorKm);
+	                diferenciaPrecio = calcularDifPrecio (precAero,precLat);
+	                mensajeCalculos();
+	                flagCalculos = 1;
+	            }
+	            else
+	            {
+	                printf("Para realizar los calculos se debe ingresar los kilometros y precios.\n\n");
+
+	            }
+	            break;
+	        case 4:
+	            if (flagCalculos)
+	            {
+	                printf("KMs Ingresados: %d\n\n", kmIngresados);
+	                printf("Precio Aerolineas: $ %d\n",precAero);
+	                mostrarResultados(precAeroDebito,precAeroCredito,precAeroBitcoin,precAeroPorKm);
+	                printf("\n Precio Latam: $ %d\n",precLat);
+	                mostrarResultados(precLatDebito,precLatCredito,precLatBitcoin,precLatPorKm);
+	                printf("\nLa diferencia de precio es: $ %d",diferenciaPrecio);
+	                printf("\n\n***SE REESTABLECIO KM Y PRECIOS A CERO\n.");
+	                flagPrecios = 0;
+	                flagKm = 0;
+	                flagCalculos = 0;
+	                kmIngresados = 0;
+	                precAero = 0;
+	                precLat = 0;
+	            }
+	            else
+	            {
+	                printf("Para mostrar los resultados primero se deben hacer los calculos.\n\n");
+	            }
+
+	            break;
+	        case 5:
+	            cargaForzada (&kmIngresados,&precAero,&precLat);
+	            realizarCalculos (precAero,kmIngresados,DESCUENTO,INTERES,BITCOIN,&precAeroDebito,&precAeroCredito,&precAeroBitcoin,&precAeroPorKm);
+	            realizarCalculos (precLat,kmIngresados,DESCUENTO,INTERES,BITCOIN,&precLatDebito,&precLatCredito,&precLatBitcoin,&precLatPorKm);
+	            diferenciaPrecio = calcularDifPrecio (precAero,precLat);
+	            printf("KMs Ingresados: %d\n\n", kmIngresados);
+	            printf("Precio Aerolineas: $ %d\n",precAero);
+	            mostrarResultados(precAeroDebito,precAeroCredito,precAeroBitcoin,precAeroPorKm);
+	            printf("\n Precio Latam: $ %d\n",precLat);
+	            mostrarResultados(precLatDebito,precLatCredito,precLatBitcoin,precLatPorKm);
+	            printf("\nLa diferencia de precio es: $ %d",diferenciaPrecio);
+	            printf("\n\n* * *   SE REESTABLECIO KM Y PRECIOS A CERO   * * *\n.");
+	            flagPrecios = 0;
+	            flagKm = 0;
+	            flagCalculos = 0;
+	            kmIngresados = 0;
+	            precAero = 0;
+	            precLat = 0;
+	            break;
+	        case 6:
+	            seguir = 0;
+	            break;
+	        default:
+	            printf("Opcion ingresada incorrecta.");
+	            break;
+	        }
+	        system("pause");
+
+	    }
+	    while (seguir == 1);
+	return EXIT_SUCCESS;
+}
+
+int menu (int km,int precAero,int precLat)
+{
+    int opcion;
+    system("cls");
+    printf("1. Ingresar Kilometros: (Km = %d)\n",km);
+    printf("2. Ingresar Precio de vuelos (Aerolineas = %d , Latam = %d ).\n",precAero,precLat);
+    printf("3. Calcular todos los costos.\n");
+    printf("4. Informar Resultados.\n");
+    printf("5. Carga forzada de datos.\n");
+    printf("6. Salir.\n\n");
+    printf("Ingrese la opcion: ");
+    fflush(stdin);
+    scanf("%d",&opcion);
+    system("cls");
+    return opcion;
+
+}
+int solicitarKm ()
+{
+    int km;
+    printf("Ingrese los Kilometros: ");
+    scanf("%d",&km);
+    km = validarIngesoPositivo(km);
+
+    return km;
+}
+int validarIngesoPositivo (int ingreso)
+{
+    while (ingreso < 1)
+    {
+        printf("ERROR: Ingrese un valor positivo mayor a cero: ");
+        fflush(stdin);
+        scanf("%d",&ingreso);
+    }
+    return ingreso;
+}
+int solicitarPrecios()
+{
+    int precio;
+    printf("ingrese precio: ");
+    scanf("%d",&precio);
+    precio = validarIngesoPositivo(precio);
+    return precio;
+}
+float aplicarDescuento (int precioInicial,int porcDesc)
+{
+    float precioFinal = 0;
+    if (precioInicial > 0 && porcDesc > 0)
+    {
+        precioFinal =  precioInicial - (float) porcDesc * precioInicial / 100 ;
+
+    }
+    return precioFinal;
+}
+float aplicarInteres (int precioInicial,int porcInteres)
+{
+    float precioFinal = 0;
+    if (precioInicial > 0 && porcInteres > 0)
+    {
+        precioFinal =  precioInicial + (float) porcInteres * precioInicial / 100 ;
+
+    }
+    return precioFinal;
+}
+double pesosABitcoin (int precioPesos, float valorBitcoin)
+{
+    double bitcoin = 0;
+    if (precioPesos > 0 && valorBitcoin > 0)
+    {
+        bitcoin = (float) precioPesos / valorBitcoin;
+    }
+    return bitcoin;
+}
+float precioPorKm (int km, int precio)
+{
+    float precioKm = 0;
+    if (km > 0 && precio > 0)
+    {
+        precioKm = (float) precio / km;
+    }
+    return precioKm;
+}
+int calcularDifPrecio(int precio1,int precio2)
+{
+    float diferencia = -1;
+    if (precio1 > 0 && precio2 > 0)
+    {
+        if (precio1 > precio2)
+        {
+            diferencia = precio1 - precio2;
+        }
+        else
+        {
+            diferencia = precio2 - precio1;
+        }
+    }
+    return diferencia;
+}
+void mensajeCalculos()
+{
+    printf("Se realizaron los siguientes calculos:\n");
+    printf("a) Tarjeta de debito (descuento 10%%)\n");
+    printf("b) Tarjeta de credito (interes 25%%)\n");
+    printf("c) Bitcoin (1BTC -> 4606954.55 Pesos Argentinos)\n");
+    printf("d) Mostrar precio por km (precio unitario)\n");
+    printf("e) Mostrar diferencia de precio ingresada (Latam - Aerolíneas)\n");
+}
+void mostrarResultados (float precDebito, float precCredito, double precBitcoin, float precioPorKm)
+{
+    printf("a) Precio con tarjeta de debito: $ %.2f\n",precDebito);
+    printf("b) Precio con tarjeta de credito: $ %.2f\n",precCredito);
+    printf("c) Precio pagando con bitcoin: %.10f BTC\n",precBitcoin);
+    printf("d) Mostrar precio unitario: $ %.2f\n\n",precioPorKm);
+}
+
+int realizarCalculos (int precioVuelo,int km,int descuento,int interes,float valorBitcoin,float* precDebit, float* precCredit,double* precBit,float* precKm)
+{
+    int todoOk = 0;
+    if (precioVuelo > 0 && descuento > 0 && interes > 0 && valorBitcoin > 0 && precBit!=NULL && precCredit!=NULL && precBit!=NULL && precKm!=NULL)
+    {
+        *precDebit = aplicarDescuento (precioVuelo,descuento);
+        *precCredit = aplicarInteres (precioVuelo,interes);
+        *precBit = pesosABitcoin (precioVuelo,valorBitcoin);
+        *precKm = precioPorKm (km,precioVuelo);
+        todoOk = 1;
+    }
+    return todoOk;
+}
+int cargaForzada (int* kmIngresados, int* precioAero, int* precioLat)
+{
+    int todoOk=0;
+    if (kmIngresados != NULL && precioAero != NULL && precioLat != NULL)
+    {
+        *kmIngresados = 7090;
+        *precioAero =  162965;
+        *precioLat = 159339;
+        todoOk = 1;
+    }
+    return todoOk;
+}
+

@@ -1,0 +1,26 @@
+/*
+ ============================================================================
+ Name        : testeo.c
+ Author      : asdd
+ Version     :
+ Copyright   : Your copyright notice
+ Description : Hello World in C, Ansi-style
+ ============================================================================
+ */
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(void) {
+	setbuf(stdout,NULL);
+	int num1;
+
+	puts("!!!Hello World!!!"); /* prints !!!Hello World!!! */
+	printf("Ingresa un numero: ");
+	scanf("%d",&num1);
+	printf("ingresate el num %d",num1);
+
+
+
+	return EXIT_SUCCESS;
+}

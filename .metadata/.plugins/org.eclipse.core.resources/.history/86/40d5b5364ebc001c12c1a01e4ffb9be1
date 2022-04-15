@@ -1,0 +1,17 @@
+/*
+ * ingresosYValidaciones.h
+ *
+ *  Created on: 14 abr. 2022
+ *      Author: Acost
+ */
+
+#ifndef INGRESOSYVALIDACIONES_H_
+#define INGRESOSYVALIDACIONES_H_
+
+
+
+#endif /* INGRESOSYVALIDACIONES_H_ */
+int solicitarKm ();
+int solicitarPrecios();
+int validarIngesoPositivo (int ingreso);
+int cargaForzada (int* kmIngresados, int* precioAero, int* precioLat);

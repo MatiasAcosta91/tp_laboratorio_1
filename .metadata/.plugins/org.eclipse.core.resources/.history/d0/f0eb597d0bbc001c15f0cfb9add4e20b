@@ -1,0 +1,73 @@
+/*
+ ============================================================================
+ Name        : testeo.c
+ Author      : asdd
+ Version     :
+ Copyright   : Your copyright notice
+ Description : Hello World in C, Ansi-style
+ ============================================================================
+ */
+int menu ();
+#include <stdio.h>
+#include <stdlib.h>
+int menu ();
+int main(void) {
+	int seguir = 1;
+
+	setbuf(stdout, NULL);
+	   do
+	    {
+
+	        switch(menu())
+	        {
+	        case 1:
+	        	printf("1\n");
+	            break;
+	        case 2:
+	        	printf("2\n");
+	            break;
+	        case 3:
+	        	printf("3\n");
+
+	            break;
+	        case 4:
+	        	printf("4\n");
+
+	            break;
+	        case 5:
+	        	printf("5\n");
+	            break;
+	        case 6:
+	        	printf("6\n");
+	            break;
+	        default:
+
+	            break;
+	        }
+	        system("pause");
+
+	    }
+	    while (seguir == 1);
+
+
+
+	return EXIT_SUCCESS;
+}
+
+int menu ()
+{
+    int opcion;
+    system("cls");
+    printf("1. Ingresar Kilometros: (Km = )\n");
+    printf("2. Ingresar Precio de vuelos (Aerolineas =  , Latam =  ).\n");
+    printf("3. Calcular todos los costos.\n");
+    printf("4. Informar Resultados.\n");
+    printf("5. Carga forzada de datos.\n");
+    printf("6. Salir.\n\n");
+    printf("Ingrese la opcion: ");
+    fflush(stdin);
+    scanf("%d",&opcion);
+    system("cls");
+    return opcion;
+
+}
